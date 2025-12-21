@@ -1,1 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Redirecting to Telegram…</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<!-- No Cache -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#0b1f18;
+  font-family:Segoe UI,Arial,sans-serif;
+  color:#e8fff4;
+}
+
+.card{
+  text-align:center;
+  padding:30px 24px;
+  background:#0f2a22;
+  border-radius:22px;
+  box-shadow:0 20px 50px rgba(0,0,0,.6);
+  max-width:360px;
+  width:90%;
+}
+
+h1{
+  margin:0 0 10px;
+  font-size:26px;
+  color:#00E676;
+}
+
+p{
+  font-size:14px;
+  color:#7ed9b2;
+  margin-bottom:18px;
+}
+
+.loader{
+  width:36px;
+  height:36px;
+  border:4px solid rgba(0,230,118,.2);
+  border-top:4px solid #00E676;
+  border-radius:50%;
+  margin:0 auto 20px;
+  animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+.btn{
+  display:inline-block;
+  padding:14px 18px;
+  border-radius:18px;
+  background:linear-gradient(135deg,#00E676,#00C853);
+  color:#003820;
+  font-weight:800;
+  text-decoration:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h1>Opening Telegram…</h1>
+  <p>Please wait while we redirect you</p>
+
+  <div class="loader"></div>
+
+  <a class="btn" href="https://telegram.me/EliteHubCommunity">
+    Open Telegram Manually
+  </a>
+</div>
+
+<script>
+setTimeout(function(){
+  window.location.href = "https://telegram.me/EliteHubCommunity";
+},1500);
+</script>
+
+</body>
+</html>
