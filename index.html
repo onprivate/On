@@ -2,119 +2,115 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Streaming Hub</title><style>
-body {
+body{
   margin:0;
-  font-family: Arial;
-  background: linear-gradient(#020617,#0f172a);
+  font-family:sans-serif;
+  background: radial-gradient(circle at top,#0f172a,#020617);
   color:#fff;
   text-align:center;
 }
 
 /* PROFILE */
-.profile img {
-  width:100px;
+.profile img{
+  width:110px;
   border-radius:50%;
   margin-top:25px;
   border:3px solid #22c55e;
+  box-shadow:0 0 20px #22c55e;
 }
 
-.name {
-  font-size:22px;
-  font-weight:bold;
+/* TITLE */
+.name{
+  font-size:24px;
   margin-top:10px;
+  font-weight:bold;
 }
 
-.followers {
+.follow{
   color:#22c55e;
   font-size:14px;
 }
 
-/* STATS */
-.stats {
+/* CARDS */
+.stats{
   display:flex;
   justify-content:space-around;
   margin:20px;
 }
 
-.card {
-  background:#111827;
-  padding:15px;
-  border-radius:12px;
+.card{
   width:28%;
+  padding:15px;
+  border-radius:14px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  box-shadow:0 0 15px rgba(0,255,200,0.2);
 }
 
-.card strong {
-  font-size:18px;
+.card strong{
   color:#22c55e;
+  font-size:18px;
 }
 
 /* BUTTON */
-.btn {
-  margin:20px;
-}
-
-.btn button {
+.btn button{
   width:90%;
   padding:15px;
   border:none;
-  border-radius:12px;
+  border-radius:14px;
+  font-size:16px;
   background: linear-gradient(90deg,#06b6d4,#9333ea);
   color:#fff;
-  font-size:16px;
-  cursor:pointer;
+  box-shadow:0 0 20px rgba(147,51,234,0.7);
 }
 
 /* TIMER BOX */
-.timer-box {
+.timer-box{
   margin:20px;
-  background:#111827;
   padding:20px;
-  border-radius:12px;
+  border-radius:14px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  box-shadow:0 0 20px rgba(0,200,255,0.2);
 }
 
-.timer {
+.timer{
   display:flex;
   justify-content:space-around;
   font-size:22px;
   margin-top:10px;
 }
 
-.label {
+.label{
   font-size:12px;
   color:#aaa;
 }
 
 /* SECTION */
-.section {
+.section{
   margin:20px;
-  background:#111827;
   padding:15px;
-  border-radius:12px;
-  text-align:left;
+  border-radius:14px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
 }
 </style></head><body><div class="profile">
   <img src="https://i.imgur.com/8Km9tLL.jpg">
 </div><div class="name">🎬 Streaming Hub</div>
-<div class="followers">✔ 53K+ Active Users</div><!-- STATS --><div class="stats">
-  <div class="card">
-    <strong>10K+</strong><br>Movies
-  </div>
-  <div class="card">
-    <strong>LIVE</strong><br>IPL
-  </div>
-  <div class="card">
-    <strong>4.9⭐</strong><br>Rating
-  </div>
-</div><!-- BUTTON --><div class="btn">
-  <button onclick="joinNow()">📩 Join Telegram Channel</button>
-</div><!-- TIMER --><div class="timer-box">
-  <div>Next Update In</div>
+<div class="follow">✔ 53K+ Active Users</div><div class="stats">
+  <div class="card"><strong>10K+</strong><br>Movies</div>
+  <div class="card"><strong>LIVE</strong><br>IPL</div>
+  <div class="card"><strong>4.9⭐</strong><br>Rating</div>
+</div><div class="btn">
+  <button onclick="joinNow()">📩 Join Telegram</button>
+</div><div class="timer-box">
+  Next Update In
   <div class="timer">
     <div><span id="h">00</span><br><span class="label">Hours</span></div>
-    <div><span id="m">00</span><br><span class="label">Minutes</span></div>
-    <div><span id="s">00</span><br><span class="label">Seconds</span></div>
+    <div><span id="m">00</span><br><span class="label">Min</span></div>
+    <div><span id="s">00</span><br><span class="label">Sec</span></div>
   </div>
-</div><!-- SECTION --><div class="section">
+</div><div class="section">
   🎬 Netflix | Hotstar | JioCinema | Sony LIV<br><br>
   HD Streaming • Fast Access • Daily Updates
 </div><script>
@@ -122,21 +118,18 @@ function joinNow(){
   window.location.href="https://t.me/+iyOTawwHSBpjMGM9";
 }
 
-/* TIMER */
-let time = 3600;
-
+let time=3600;
 setInterval(()=>{
-  let h = Math.floor(time/3600);
-  let m = Math.floor((time%3600)/60);
-  let s = time%60;
+  let h=Math.floor(time/3600);
+  let m=Math.floor((time%3600)/60);
+  let s=time%60;
 
-  document.getElementById("h").innerHTML = h;
-  document.getElementById("m").innerHTML = m;
-  document.getElementById("s").innerHTML = s;
+  document.getElementById("h").innerHTML=h;
+  document.getElementById("m").innerHTML=m;
+  document.getElementById("s").innerHTML=s;
 
   time--;
   if(time<0) time=3600;
-
 },1000);
 </script></body>
 </html>
