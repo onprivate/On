@@ -1,54 +1,86 @@
 <!DOCTYPE html><html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Gas Booking</title><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"><style>
+<title>LPG Gas Booking Portal</title><style>
 body {
-  font-family: 'Poppins', sans-serif;
-  background:#f4f6f9;
+  font-family: Arial, sans-serif;
+  background:#f2f2f2;
   margin:0;
 }
 
 .header {
-  background: linear-gradient(90deg,#0b3d91,#1e5ed8);
+  background:#003366;
   color:#fff;
-  padding:15px;
+  padding:14px;
   text-align:center;
-  font-weight:600;
+  font-size:18px;
+  font-weight:bold;
 }
 
 .box {
   background:#fff;
-  margin:20px;
-  padding:20px;
-  border-radius:15px;
-  box-shadow:0 8px 20px rgba(0,0,0,0.08);
-}
-
-input {
-  width:100%;
-  padding:12px;
-  margin-top:10px;
-  border-radius:8px;
+  margin:15px;
+  padding:18px;
+  border-radius:6px;
   border:1px solid #ccc;
 }
 
+h3 {
+  margin-bottom:10px;
+  color:#003366;
+}
+
+/* Gas Options */
+.gas-options {
+  display:flex;
+  gap:10px;
+}
+
+.gas-card {
+  flex:1;
+  padding:12px;
+  border:1px solid #ccc;
+  border-radius:5px;
+  text-align:center;
+  cursor:pointer;
+  background:#fafafa;
+}
+
+.gas-card.active {
+  border:2px solid #003366;
+  background:#e6f0ff;
+  font-weight:bold;
+}
+
+/* Inputs */
+input {
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+  border:1px solid #ccc;
+  border-radius:4px;
+}
+
+/* Button */
 button {
   width:100%;
   padding:12px;
   margin-top:15px;
+  background:#003366;
+  color:#fff;
   border:none;
-  border-radius:8px;
-  background:linear-gradient(90deg,#ff9800,#ffb74d);
-  color:white;
-  font-weight:600;
+  border-radius:4px;
+  font-size:15px;
   cursor:pointer;
 }
 
-.hidden {display:none;}
+button:hover {
+  background:#0055aa;
+}
 
 #qrcode {
   text-align:center;
-  margin-top:20px;
+  margin-top:15px;
 }
 
 .success {
@@ -60,58 +92,34 @@ button {
   color:green;
 }
 
-/* GAS OPTIONS */
-.gas-options {
-  display:flex;
-  gap:10px;
-  margin-top:10px;
-}
-
-.gas-card {
-  flex:1;
-  background:#fff;
-  padding:10px;
-  border-radius:10px;
-  text-align:center;
-  box-shadow:0 4px 10px rgba(0,0,0,0.08);
-  cursor:pointer;
-  border:2px solid transparent;
-}
-
-.gas-card img {
-  width:50px;
-  height:50px;
-}
-
-.gas-card.active {
-  border:2px solid #0b3d91;
-}
-</style></head><body><div class="header">Gas Booking Service</div><div class="box"><h3>Select Gas Provider</h3><div class="gas-options">  <div class="gas-card" onclick="selectGas('Indane')" id="indane">
-    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/9/9b/Indane_logo.svg/120px-Indane_logo.svg.png">
-    <p>Indane Gas</p>
-  </div>  <div class="gas-card" onclick="selectGas('Bharat')" id="bharat">
-    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/Bharatgas_logo.svg/120px-Bharatgas_logo.svg.png">
-    <p>Bharat Gas</p>
-  </div></div><p id="selectedGas" style="margin-top:10px;font-weight:600;"></p><h3>Consumer Details</h3>
+.hidden {display:none;}
+</style></head><body><div class="header">LPG Gas Booking Portal</div><div class="box"><h3>Select Gas Provider</h3><div class="gas-options">
+  <div class="gas-card" onclick="selectGas('Indian')" id="indian">Indian Gas (Indane)</div>
+  <div class="gas-card" onclick="selectGas('Bharat')" id="bharat">Bharat Gas</div>
+  <div class="gas-card" onclick="selectGas('HP')" id="hp">HP Gas</div>
+</div><p id="selectedGas" style="margin-top:8px;font-weight:bold;"></p><h3>Consumer Details</h3>
 <input type="text" id="name" placeholder="Enter Name">
-<input type="number" id="mobile" placeholder="Mobile Number"><p id="bookingId"></p><h4>Service Charge: ₹1</h4><button onclick="startProcess()">Proceed & Pay</button>
+<input type="number" id="mobile" placeholder="Mobile Number"><p id="bookingId"></p><button onclick="startProcess()">Book & Pay</button>
 
 <div id="qrcode"></div><div id="successBox" class="success hidden">
-  <h3>✅ Booking Successful</h3>
-  <p>🚚 Delivery in 2–3 days</p>
+  <h3>Booking Successful</h3>
+  <p>Delivery in 2–3 working days</p>
 </div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><script>
 let selectedGas = "";
 
 function selectGas(type) {
   selectedGas = type;
 
-  document.getElementById("indane").classList.remove("active");
+  document.getElementById("indian").classList.remove("active");
   document.getElementById("bharat").classList.remove("active");
+  document.getElementById("hp").classList.remove("active");
 
-  if(type === "Indane"){
-    document.getElementById("indane").classList.add("active");
-  } else {
+  if(type === "Indian"){
+    document.getElementById("indian").classList.add("active");
+  } else if(type === "Bharat"){
     document.getElementById("bharat").classList.add("active");
+  } else {
+    document.getElementById("hp").classList.add("active");
   }
 
   document.getElementById("selectedGas").innerHTML =
@@ -132,26 +140,24 @@ function startProcess() {
     return;
   }
 
-  // Booking ID
-  let id = "GB" + Math.floor(Math.random()*100000);
+  let id = "LPG" + Math.floor(Math.random()*100000);
+
   document.getElementById("bookingId").innerHTML =
     "Booking ID: " + id + "<br>Gas: " + selectedGas;
 
-  // QR Code
-  let upi = "upi://pay?pa=yourupiid@upi&pn=GasBooking&am=1&cu=INR";
+  let upi = "upi://pay?pa=yourupiid@upi&pn=LPGBooking&am=1&cu=INR";
 
   document.getElementById("qrcode").innerHTML = "";
 
   new QRCode(document.getElementById("qrcode"), {
     text: upi,
-    width: 180,
-    height: 180
+    width: 170,
+    height: 170
   });
 
-  // Success after delay
   setTimeout(() => {
     document.getElementById("successBox").classList.remove("hidden");
-  }, 5000);
+  }, 4000);
 }
 </script></body>
 </html>
