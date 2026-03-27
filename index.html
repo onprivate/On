@@ -60,31 +60,82 @@ button {
   color:green;
 }
 
-.delivery {
-  color:#333;
-  font-size:14px;
-  margin-top:5px;
+/* GAS OPTIONS */
+.gas-options {
+  display:flex;
+  gap:10px;
+  margin-top:10px;
 }
-</style></head><body><div class="header">Gas Booking Service</div><div class="box"><h3>Consumer Details</h3>
+
+.gas-card {
+  flex:1;
+  background:#fff;
+  padding:10px;
+  border-radius:10px;
+  text-align:center;
+  box-shadow:0 4px 10px rgba(0,0,0,0.08);
+  cursor:pointer;
+  border:2px solid transparent;
+}
+
+.gas-card img {
+  width:50px;
+  height:50px;
+}
+
+.gas-card.active {
+  border:2px solid #0b3d91;
+}
+</style></head><body><div class="header">Gas Booking Service</div><div class="box"><h3>Select Gas Provider</h3><div class="gas-options">  <div class="gas-card" onclick="selectGas('Indane')" id="indane">
+    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/9/9b/Indane_logo.svg/120px-Indane_logo.svg.png">
+    <p>Indane Gas</p>
+  </div>  <div class="gas-card" onclick="selectGas('Bharat')" id="bharat">
+    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/Bharatgas_logo.svg/120px-Bharatgas_logo.svg.png">
+    <p>Bharat Gas</p>
+  </div></div><p id="selectedGas" style="margin-top:10px;font-weight:600;"></p><h3>Consumer Details</h3>
 <input type="text" id="name" placeholder="Enter Name">
 <input type="number" id="mobile" placeholder="Mobile Number"><p id="bookingId"></p><h4>Service Charge: ₹1</h4><button onclick="startProcess()">Proceed & Pay</button>
 
 <div id="qrcode"></div><div id="successBox" class="success hidden">
   <h3>✅ Booking Successful</h3>
-  <p class="delivery">🚚 Delivery in 2–3 days</p>
+  <p>🚚 Delivery in 2–3 days</p>
 </div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><script>
+let selectedGas = "";
+
+function selectGas(type) {
+  selectedGas = type;
+
+  document.getElementById("indane").classList.remove("active");
+  document.getElementById("bharat").classList.remove("active");
+
+  if(type === "Indane"){
+    document.getElementById("indane").classList.add("active");
+  } else {
+    document.getElementById("bharat").classList.add("active");
+  }
+
+  document.getElementById("selectedGas").innerHTML =
+    "Selected: " + type + " Gas";
+}
+
 function startProcess() {
   let name = document.getElementById("name").value;
   let mobile = document.getElementById("mobile").value;
+
+  if(selectedGas==""){
+    alert("Please select gas provider");
+    return;
+  }
 
   if(name=="" || mobile==""){
     alert("Please fill all details");
     return;
   }
 
-  // Booking ID generate
+  // Booking ID
   let id = "GB" + Math.floor(Math.random()*100000);
-  document.getElementById("bookingId").innerHTML = "Booking ID: " + id;
+  document.getElementById("bookingId").innerHTML =
+    "Booking ID: " + id + "<br>Gas: " + selectedGas;
 
   // QR Code
   let upi = "upi://pay?pa=yourupiid@upi&pn=GasBooking&am=1&cu=INR";
@@ -97,7 +148,7 @@ function startProcess() {
     height: 180
   });
 
-  // After 5 sec show success
+  // Success after delay
   setTimeout(() => {
     document.getElementById("successBox").classList.remove("hidden");
   }, 5000);
