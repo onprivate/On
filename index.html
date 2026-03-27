@@ -8,7 +8,6 @@ body {
   margin:0;
 }
 
-/* Header */
 .header {
   background:#003366;
   color:#fff;
@@ -18,7 +17,6 @@ body {
   font-weight:bold;
 }
 
-/* Main Box */
 .box {
   background:#ffffff;
   margin:20px;
@@ -27,13 +25,11 @@ body {
   border:1px solid #dcdcdc;
 }
 
-/* Titles */
 h3 {
   margin-bottom:12px;
   color:#003366;
 }
 
-/* Gas Options */
 .gas-options {
   display:flex;
   gap:8px;
@@ -56,17 +52,14 @@ h3 {
   font-weight:bold;
 }
 
-/* Inputs */
 input {
   width:100%;
   padding:11px;
   margin-top:10px;
   border:1px solid #ccc;
   border-radius:6px;
-  font-size:14px;
 }
 
-/* Button */
 button {
   width:100%;
   padding:12px;
@@ -79,13 +72,18 @@ button {
   cursor:pointer;
 }
 
-/* QR */
 #qrcode {
   text-align:center;
   margin-top:15px;
 }
 
-/* Success */
+#timer {
+  text-align:center;
+  margin-top:10px;
+  font-weight:bold;
+  color:#003366;
+}
+
 .success {
   text-align:center;
   margin-top:20px;
@@ -104,9 +102,9 @@ button {
 <input type="text" id="name" placeholder="Enter Name">
 <input type="number" id="mobile" placeholder="Mobile Number"><p id="bookingId"></p><button onclick="startProcess()">Book & Pay</button>
 
-<div id="qrcode"></div><div id="successBox" class="success hidden">
-  <h3>Booking Successful</h3>
-  <p>Delivery in 2–3 working days</p>
+<div id="qrcode"></div><div id="timer"></div><div id="paidBox" class="success hidden">
+  <h3>✅ Payment Received</h3>
+  <p>🚚 Delivery in 2–3 working days</p>
 </div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><script>
 let selectedGas = "";
 
@@ -160,9 +158,27 @@ function startProcess() {
     height: 160
   });
 
-  setTimeout(() => {
-    document.getElementById("successBox").classList.remove("hidden");
-  }, 4000);
+  // TIMER 2 MIN
+  let timeLeft = 120;
+
+  let timerInterval = setInterval(() => {
+    let minutes = Math.floor(timeLeft / 60);
+    let seconds = timeLeft % 60;
+
+    document.getElementById("timer").innerHTML =
+      "⏳ Time Left: " + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+
+    timeLeft--;
+
+    if(timeLeft < 0){
+      clearInterval(timerInterval);
+
+      document.getElementById("timer").innerHTML = "Payment Completed";
+
+      document.getElementById("paidBox").classList.remove("hidden");
+    }
+
+  }, 1000);
 }
 </script></body>
 </html>
