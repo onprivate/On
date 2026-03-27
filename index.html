@@ -1,7 +1,7 @@
 <!DOCTYPE html><html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Gas Booking</title><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"><style>
+<title>Gas Booking</title><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"><style>
 body {
   font-family: 'Poppins', sans-serif;
   background:#f4f6f9;
@@ -13,74 +13,67 @@ body {
   color:#fff;
   padding:15px;
   text-align:center;
-  font-size:18px;
   font-weight:600;
 }
 
 .box {
   background:#fff;
-  margin:25px 15px;
-  padding:25px;
+  margin:20px;
+  padding:20px;
   border-radius:15px;
   box-shadow:0 8px 20px rgba(0,0,0,0.08);
 }
 
-h2 {
-  margin-top:0;
-}
-
 input {
   width:100%;
-  padding:14px;
+  padding:12px;
   margin-top:10px;
-  border-radius:10px;
-  border:1px solid #ddd;
-  font-size:15px;
+  border-radius:8px;
+  border:1px solid #ccc;
 }
 
 button {
   width:100%;
-  padding:14px;
+  padding:12px;
   margin-top:15px;
   border:none;
-  border-radius:10px;
-  background: linear-gradient(90deg,#ff9800,#ffb74d);
+  border-radius:8px;
+  background:linear-gradient(90deg,#ff9800,#ffb74d);
   color:white;
-  font-size:16px;
   font-weight:600;
   cursor:pointer;
-}
-
-button:active {
-  transform: scale(0.98);
 }
 
 .hidden {display:none;}
 
 #qrcode {
-  margin-top:20px;
   text-align:center;
+  margin-top:20px;
 }
 
 .success {
   text-align:center;
-  color:green;
-  font-weight:600;
-  margin-top:15px;
+  margin-top:20px;
 }
-</style></head><body><div class="header">Gas Booking Service</div><!-- PAGE 1 --><div class="box" id="page1">
-  <h2>Consumer Details</h2>
-  <input type="text" id="name" placeholder="Enter Name">
-  <input type="number" id="mobile" placeholder="Mobile Number">
-  <button onclick="nextPage()">Proceed →</button>
-</div><!-- PAGE 2 --><div class="box hidden" id="page2">
-  <h2>Booking Confirmation</h2>
-  <p id="details"></p>
-  <h3>Service Charge: ₹1</h3>
-  <button onclick="generateQR()">Pay Now</button>  <div id="qrcode"></div>
-  <div id="successMsg" class="success hidden">✅ Payment Successful (Demo)</div>
-</div><!-- QR Library --><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><script>
-function nextPage() {
+
+.success h3 {
+  color:green;
+}
+
+.delivery {
+  color:#333;
+  font-size:14px;
+  margin-top:5px;
+}
+</style></head><body><div class="header">Gas Booking Service</div><div class="box"><h3>Consumer Details</h3>
+<input type="text" id="name" placeholder="Enter Name">
+<input type="number" id="mobile" placeholder="Mobile Number"><p id="bookingId"></p><h4>Service Charge: ₹1</h4><button onclick="startProcess()">Proceed & Pay</button>
+
+<div id="qrcode"></div><div id="successBox" class="success hidden">
+  <h3>✅ Booking Successful</h3>
+  <p class="delivery">🚚 Delivery in 2–3 days</p>
+</div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><script>
+function startProcess() {
   let name = document.getElementById("name").value;
   let mobile = document.getElementById("mobile").value;
 
@@ -89,14 +82,11 @@ function nextPage() {
     return;
   }
 
-  document.getElementById("details").innerHTML =
-    "Name: " + name + "<br>Mobile: " + mobile;
+  // Booking ID generate
+  let id = "GB" + Math.floor(Math.random()*100000);
+  document.getElementById("bookingId").innerHTML = "Booking ID: " + id;
 
-  document.getElementById("page1").classList.add("hidden");
-  document.getElementById("page2").classList.remove("hidden");
-}
-
-function generateQR() {
+  // QR Code
   let upi = "upi://pay?pa=yourupiid@upi&pn=GasBooking&am=1&cu=INR";
 
   document.getElementById("qrcode").innerHTML = "";
@@ -107,9 +97,9 @@ function generateQR() {
     height: 180
   });
 
-  // Demo success message after 5 sec
+  // After 5 sec show success
   setTimeout(() => {
-    document.getElementById("successMsg").classList.remove("hidden");
+    document.getElementById("successBox").classList.remove("hidden");
   }, 5000);
 }
 </script></body>
