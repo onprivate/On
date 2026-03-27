@@ -4,32 +4,36 @@
 <title>LPG Gas Booking Portal</title><style>
 body {
   font-family: Arial, sans-serif;
-  background:#e9eef3;
+  background:#eef2f6;
   margin:0;
 }
 
+/* Header */
 .header {
-  background:#003366;
+  background:#002f5b;
   color:#fff;
-  padding:14px;
+  padding:15px;
   text-align:center;
   font-size:18px;
   font-weight:bold;
 }
 
+/* Box */
 .box {
-  background:#ffffff;
-  margin:20px;
+  background:#fff;
+  margin:18px;
   padding:20px;
   border-radius:10px;
-  border:1px solid #dcdcdc;
+  border:1px solid #ddd;
 }
 
+/* Titles */
 h3 {
-  color:#003366;
+  color:#002f5b;
+  margin-bottom:10px;
 }
 
-/* Gas Options */
+/* Gas Cards */
 .gas-options {
   display:flex;
   gap:8px;
@@ -37,51 +41,59 @@ h3 {
 
 .gas-card {
   flex:1;
-  padding:14px;
+  padding:12px;
   border-radius:8px;
   text-align:center;
   cursor:pointer;
   border:1px solid #ccc;
-  background:#f5f7fa;
+  background:#f4f7fb;
+  font-size:14px;
+  transition:0.2s;
 }
 
 .gas-card.active {
-  border:2px solid #003366;
+  border:2px solid #002f5b;
   background:#dce8f7;
   font-weight:bold;
 }
 
+/* Inputs */
 input {
   width:100%;
   padding:11px;
   margin-top:10px;
   border:1px solid #ccc;
   border-radius:6px;
+  font-size:14px;
 }
 
+/* Button */
 button {
   width:100%;
   padding:12px;
-  margin-top:16px;
-  background:#003366;
+  margin-top:18px;
+  background:#002f5b;
   color:#fff;
   border:none;
   border-radius:6px;
   font-size:15px;
 }
 
+/* QR */
 #qrcode {
   text-align:center;
-  margin-top:15px;
+  margin-top:20px;
 }
 
+/* Timer */
 #timer {
   text-align:center;
-  margin-top:10px;
+  margin-top:12px;
   font-weight:bold;
-  color:#003366;
+  color:#002f5b;
 }
 
+/* Success */
 .success {
   text-align:center;
   margin-top:20px;
@@ -89,6 +101,13 @@ button {
 
 .success h3 {
   color:green;
+}
+
+.note {
+  text-align:center;
+  font-size:13px;
+  color:#555;
+  margin-top:8px;
 }
 
 .hidden {display:none;}
@@ -103,8 +122,9 @@ button {
 <input type="text" id="address" placeholder="Enter Address">
 <input type="text" id="state" placeholder="Enter State"><button onclick="goToPayment()">Book Now</button>
 
-</div><!-- PAGE 2 --><div class="box hidden" id="page2"><h3>Payment</h3><p id="summary"></p><div id="qrcode"></div><div id="timer"></div><div id="paidBox" class="success hidden">
+</div><!-- PAGE 2 --><div class="box hidden" id="page2"><h3>Payment Details</h3><p id="summary"></p><div id="qrcode"></div><p class="note">Scan & Pay using any UPI app</p><div id="timer"></div><div id="paidBox" class="success hidden">
   <h3>✅ Payment Received</h3>
+  <p>📦 Booking Confirmed</p>
   <p>🚚 Delivery in 2–3 working days</p>
 </div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><script>
 let selectedGas = "";
@@ -143,21 +163,22 @@ function goToPayment() {
     "<br>Address: " + address +
     "<br>State: " + state;
 
-  // Show page 2
   document.getElementById("page1").classList.add("hidden");
   document.getElementById("page2").classList.remove("hidden");
 
   // QR Generate
-  let upi = "upi://pay?pa=yourupiid@upi&pn=LPGBooking&am=1&cu=INR";
+  let upi = "upi://pay?pa=8421245868@ybl&pn=LPGBooking&am=1&cu=INR";
+
+  document.getElementById("qrcode").innerHTML = "";
 
   new QRCode(document.getElementById("qrcode"), {
     text: upi,
-    width: 160,
-    height: 160
+    width: 170,
+    height: 170
   });
 
-  // Timer
-  let timeLeft = 120;
+  // ⏳ 1 MIN TIMER
+  let timeLeft = 60;
 
   let timerInterval = setInterval(() => {
     let m = Math.floor(timeLeft / 60);
