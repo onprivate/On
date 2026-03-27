@@ -1,202 +1,142 @@
 <!DOCTYPE html><html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>LPG Gas Booking Portal</title><style>
+<title>Streaming Hub</title><style>
 body {
-  font-family: Arial, sans-serif;
-  background:#eef2f6;
   margin:0;
-}
-
-/* Header */
-.header {
-  background:#002f5b;
+  font-family: Arial;
+  background: linear-gradient(#020617,#0f172a);
   color:#fff;
-  padding:15px;
   text-align:center;
-  font-size:18px;
+}
+
+/* PROFILE */
+.profile img {
+  width:100px;
+  border-radius:50%;
+  margin-top:25px;
+  border:3px solid #22c55e;
+}
+
+.name {
+  font-size:22px;
   font-weight:bold;
-}
-
-/* Box */
-.box {
-  background:#fff;
-  margin:18px;
-  padding:20px;
-  border-radius:10px;
-  border:1px solid #ddd;
-}
-
-/* Titles */
-h3 {
-  color:#002f5b;
-  margin-bottom:10px;
-}
-
-/* Gas Cards */
-.gas-options {
-  display:flex;
-  gap:8px;
-}
-
-.gas-card {
-  flex:1;
-  padding:12px;
-  border-radius:8px;
-  text-align:center;
-  cursor:pointer;
-  border:1px solid #ccc;
-  background:#f4f7fb;
-  font-size:14px;
-  transition:0.2s;
-}
-
-.gas-card.active {
-  border:2px solid #002f5b;
-  background:#dce8f7;
-  font-weight:bold;
-}
-
-/* Inputs */
-input {
-  width:100%;
-  padding:11px;
   margin-top:10px;
-  border:1px solid #ccc;
-  border-radius:6px;
+}
+
+.followers {
+  color:#22c55e;
   font-size:14px;
 }
 
-/* Button */
-button {
-  width:100%;
-  padding:12px;
-  margin-top:18px;
-  background:#002f5b;
-  color:#fff;
+/* STATS */
+.stats {
+  display:flex;
+  justify-content:space-around;
+  margin:20px;
+}
+
+.card {
+  background:#111827;
+  padding:15px;
+  border-radius:12px;
+  width:28%;
+}
+
+.card strong {
+  font-size:18px;
+  color:#22c55e;
+}
+
+/* BUTTON */
+.btn {
+  margin:20px;
+}
+
+.btn button {
+  width:90%;
+  padding:15px;
   border:none;
-  border-radius:6px;
-  font-size:15px;
+  border-radius:12px;
+  background: linear-gradient(90deg,#06b6d4,#9333ea);
+  color:#fff;
+  font-size:16px;
+  cursor:pointer;
 }
 
-/* QR */
-#qrcode {
-  text-align:center;
-  margin-top:20px;
+/* TIMER BOX */
+.timer-box {
+  margin:20px;
+  background:#111827;
+  padding:20px;
+  border-radius:12px;
 }
 
-/* Timer */
-#timer {
-  text-align:center;
-  margin-top:12px;
-  font-weight:bold;
-  color:#002f5b;
+.timer {
+  display:flex;
+  justify-content:space-around;
+  font-size:22px;
+  margin-top:10px;
 }
 
-/* Success */
-.success {
-  text-align:center;
-  margin-top:20px;
+.label {
+  font-size:12px;
+  color:#aaa;
 }
 
-.success h3 {
-  color:green;
+/* SECTION */
+.section {
+  margin:20px;
+  background:#111827;
+  padding:15px;
+  border-radius:12px;
+  text-align:left;
+}
+</style></head><body><div class="profile">
+  <img src="https://i.imgur.com/8Km9tLL.jpg">
+</div><div class="name">🎬 Streaming Hub</div>
+<div class="followers">✔ 53K+ Active Users</div><!-- STATS --><div class="stats">
+  <div class="card">
+    <strong>10K+</strong><br>Movies
+  </div>
+  <div class="card">
+    <strong>LIVE</strong><br>IPL
+  </div>
+  <div class="card">
+    <strong>4.9⭐</strong><br>Rating
+  </div>
+</div><!-- BUTTON --><div class="btn">
+  <button onclick="joinNow()">📩 Join Telegram Channel</button>
+</div><!-- TIMER --><div class="timer-box">
+  <div>Next Update In</div>
+  <div class="timer">
+    <div><span id="h">00</span><br><span class="label">Hours</span></div>
+    <div><span id="m">00</span><br><span class="label">Minutes</span></div>
+    <div><span id="s">00</span><br><span class="label">Seconds</span></div>
+  </div>
+</div><!-- SECTION --><div class="section">
+  🎬 Netflix | Hotstar | JioCinema | Sony LIV<br><br>
+  HD Streaming • Fast Access • Daily Updates
+</div><script>
+function joinNow(){
+  window.location.href="https://t.me/+iyOTawwHSBpjMGM9";
 }
 
-.note {
-  text-align:center;
-  font-size:13px;
-  color:#555;
-  margin-top:8px;
-}
+/* TIMER */
+let time = 3600;
 
-.hidden {display:none;}
-</style></head><body><div class="header">LPG Gas Booking Portal</div><!-- PAGE 1 --><div class="box" id="page1"><h3>Select Gas Provider</h3>
-<div class="gas-options">
-  <div class="gas-card" onclick="selectGas('Indian')" id="indian">Indian</div>
-  <div class="gas-card" onclick="selectGas('Bharat')" id="bharat">Bharat</div>
-  <div class="gas-card" onclick="selectGas('HP')" id="hp">HP</div>
-</div><p id="selectedGas" style="margin-top:10px;font-weight:bold;"></p><h3>Consumer Details</h3>
-<input type="text" id="name" placeholder="Enter Name">
-<input type="number" id="mobile" placeholder="Mobile Number">
-<input type="text" id="address" placeholder="Enter Address">
-<input type="text" id="state" placeholder="Enter State"><button onclick="goToPayment()">Book Now</button>
+setInterval(()=>{
+  let h = Math.floor(time/3600);
+  let m = Math.floor((time%3600)/60);
+  let s = time%60;
 
-</div><!-- PAGE 2 --><div class="box hidden" id="page2"><h3>Payment Details</h3><p id="summary"></p><div id="qrcode"></div><p class="note">Scan & Pay using any UPI app</p><div id="timer"></div><div id="paidBox" class="success hidden">
-  <h3>✅ Payment Received</h3>
-  <p>📦 Booking Confirmed</p>
-  <p>🚚 Delivery in 2–3 working days</p>
-</div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><script>
-let selectedGas = "";
+  document.getElementById("h").innerHTML = h;
+  document.getElementById("m").innerHTML = m;
+  document.getElementById("s").innerHTML = s;
 
-function selectGas(type) {
-  selectedGas = type;
+  time--;
+  if(time<0) time=3600;
 
-  document.getElementById("indian").classList.remove("active");
-  document.getElementById("bharat").classList.remove("active");
-  document.getElementById("hp").classList.remove("active");
-
-  document.getElementById(type.toLowerCase()).classList.add("active");
-
-  document.getElementById("selectedGas").innerHTML =
-    "Selected: " + type;
-}
-
-function goToPayment() {
-  let name = document.getElementById("name").value;
-  let mobile = document.getElementById("mobile").value;
-  let address = document.getElementById("address").value;
-  let state = document.getElementById("state").value;
-
-  if(selectedGas=="" || name=="" || mobile=="" || address=="" || state==""){
-    alert("Please fill all details");
-    return;
-  }
-
-  let id = "LPG" + Math.floor(Math.random()*100000);
-
-  document.getElementById("summary").innerHTML =
-    "Booking ID: " + id +
-    "<br>Gas: " + selectedGas +
-    "<br>Name: " + name +
-    "<br>Mobile: " + mobile +
-    "<br>Address: " + address +
-    "<br>State: " + state;
-
-  document.getElementById("page1").classList.add("hidden");
-  document.getElementById("page2").classList.remove("hidden");
-
-  // QR Generate
-  let upi = "upi://pay?pa=8421245868@ybl&pn=LPGBooking&am=1&cu=INR";
-
-  document.getElementById("qrcode").innerHTML = "";
-
-  new QRCode(document.getElementById("qrcode"), {
-    text: upi,
-    width: 170,
-    height: 170
-  });
-
-  // ⏳ 1 MIN TIMER
-  let timeLeft = 60;
-
-  let timerInterval = setInterval(() => {
-    let m = Math.floor(timeLeft / 60);
-    let s = timeLeft % 60;
-
-    document.getElementById("timer").innerHTML =
-      "⏳ Time Left: " + m + ":" + (s<10?"0":"") + s;
-
-    timeLeft--;
-
-    if(timeLeft < 0){
-      clearInterval(timerInterval);
-
-      document.getElementById("timer").innerHTML = "Payment Completed";
-      document.getElementById("paidBox").classList.remove("hidden");
-    }
-
-  }, 1000);
-}
+},1000);
 </script></body>
 </html>
