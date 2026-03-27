@@ -1,135 +1,90 @@
 <!DOCTYPE html><html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Streaming Hub</title><style>
+<title>IPL Free Access</title><style>
 body{
   margin:0;
   font-family:sans-serif;
-  background: radial-gradient(circle at top,#0f172a,#020617);
-  color:#fff;
   text-align:center;
+  color:#fff;
+  background:url('https://i.imgur.com/3ZQ3Z6F.jpg') no-repeat center;
+  background-size:cover;
 }
 
-/* PROFILE */
-.profile img{
-  width:110px;
-  border-radius:50%;
-  margin-top:25px;
-  border:3px solid #22c55e;
-  box-shadow:0 0 20px #22c55e;
+/* DARK OVERLAY */
+.overlay{
+  background:rgba(0,0,0,0.7);
+  min-height:100vh;
+  padding:20px;
 }
 
 /* TITLE */
-.name{
-  font-size:24px;
-  margin-top:10px;
+.title{
+  font-size:30px;
+  font-weight:bold;
+  color:yellow;
+  text-shadow:0 0 15px orange;
+}
+
+/* APPS */
+.apps{
+  display:flex;
+  justify-content:space-around;
+  margin:25px 0;
+}
+
+.app{
+  background:#111;
+  padding:10px;
+  border-radius:12px;
+  width:22%;
+  box-shadow:0 0 15px rgba(255,255,255,0.2);
+}
+
+/* FREE */
+.free{
+  font-size:20px;
+  margin:15px 0;
+  color:#fff;
+}
+
+.free span{
+  color:red;
   font-weight:bold;
 }
 
-.follow{
-  color:#22c55e;
+/* ALERT */
+.alert{
+  color:yellow;
   font-size:14px;
 }
 
-/* CARDS */
-.stats{
-  display:flex;
-  justify-content:space-around;
-  margin:20px;
-}
-
-.card{
-  width:28%;
-  padding:15px;
-  border-radius:14px;
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(10px);
-  box-shadow:0 0 15px rgba(0,255,200,0.2);
-}
-
-.card strong{
-  color:#22c55e;
-  font-size:18px;
-}
-
 /* BUTTON */
-.btn button{
+button{
   width:90%;
-  padding:15px;
+  padding:18px;
+  margin-top:20px;
+  font-size:20px;
   border:none;
-  border-radius:14px;
-  font-size:16px;
-  background: linear-gradient(90deg,#06b6d4,#9333ea);
+  border-radius:40px;
+  background:linear-gradient(90deg,#3b82f6,#06b6d4);
   color:#fff;
-  box-shadow:0 0 20px rgba(147,51,234,0.7);
+  box-shadow:0 0 25px #06b6d4;
 }
+</style></head><body><div class="overlay"><div class="title">🔥 IPL FREE ME DEKHO 🔥</div><div class="apps">
+  <div class="app">JioCinema</div>
+  <div class="app">Hotstar</div>
+  <div class="app">Netflix</div>
+  <div class="app">Sony LIV</div>
+</div><div class="free">
+💎 ALL PREMIUM <span>FREE</span>
+</div><div class="alert">
+⚠️ Limited Access • Only Today
+</div><button onclick="joinNow()">👉 JOIN TELEGRAM NOW</button>
 
-/* TIMER BOX */
-.timer-box{
-  margin:20px;
-  padding:20px;
-  border-radius:14px;
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(10px);
-  box-shadow:0 0 20px rgba(0,200,255,0.2);
-}
-
-.timer{
-  display:flex;
-  justify-content:space-around;
-  font-size:22px;
-  margin-top:10px;
-}
-
-.label{
-  font-size:12px;
-  color:#aaa;
-}
-
-/* SECTION */
-.section{
-  margin:20px;
-  padding:15px;
-  border-radius:14px;
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(10px);
-}
-</style></head><body><div class="profile">
-  <img src="https://i.imgur.com/8Km9tLL.jpg">
-</div><div class="name">🎬 Streaming Hub</div>
-<div class="follow">✔ 53K+ Active Users</div><div class="stats">
-  <div class="card"><strong>10K+</strong><br>Movies</div>
-  <div class="card"><strong>LIVE</strong><br>IPL</div>
-  <div class="card"><strong>4.9⭐</strong><br>Rating</div>
-</div><div class="btn">
-  <button onclick="joinNow()">📩 Join Telegram</button>
-</div><div class="timer-box">
-  Next Update In
-  <div class="timer">
-    <div><span id="h">00</span><br><span class="label">Hours</span></div>
-    <div><span id="m">00</span><br><span class="label">Min</span></div>
-    <div><span id="s">00</span><br><span class="label">Sec</span></div>
-  </div>
-</div><div class="section">
-  🎬 Netflix | Hotstar | JioCinema | Sony LIV<br><br>
-  HD Streaming • Fast Access • Daily Updates
 </div><script>
 function joinNow(){
   window.location.href="https://t.me/+iyOTawwHSBpjMGM9";
 }
-
-let time=3600;
-setInterval(()=>{
-  let h=Math.floor(time/3600);
-  let m=Math.floor((time%3600)/60);
-  let s=time%60;
-
-  document.getElementById("h").innerHTML=h;
-  document.getElementById("m").innerHTML=m;
-  document.getElementById("s").innerHTML=s;
-
-  time--;
-  if(time<0) time=3600;
-},1000);
 </script></body>
 </html>
