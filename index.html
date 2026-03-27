@@ -1,89 +1,116 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html><html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Gas Booking</title>
-
-<style>
-body {font-family: Arial; background:#f5f5f5; margin:0;}
-.header {background:#0b3d91;color:#fff;padding:15px;text-align:center;}
-
-.box {
-background:#fff;
-margin:20px;
-padding:20px;
-border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,0.1);
+<title>Gas Booking</title><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"><style>
+body {
+  font-family: 'Poppins', sans-serif;
+  background:#f4f6f9;
+  margin:0;
 }
 
-input, button {
-width:100%;
-padding:12px;
-margin-top:10px;
-border-radius:5px;
-border:1px solid #ccc;
+.header {
+  background: linear-gradient(90deg,#0b3d91,#1e5ed8);
+  color:#fff;
+  padding:15px;
+  text-align:center;
+  font-size:18px;
+  font-weight:600;
+}
+
+.box {
+  background:#fff;
+  margin:25px 15px;
+  padding:25px;
+  border-radius:15px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+
+h2 {
+  margin-top:0;
+}
+
+input {
+  width:100%;
+  padding:14px;
+  margin-top:10px;
+  border-radius:10px;
+  border:1px solid #ddd;
+  font-size:15px;
 }
 
 button {
-background:orange;
-color:white;
-border:none;
-font-size:16px;
+  width:100%;
+  padding:14px;
+  margin-top:15px;
+  border:none;
+  border-radius:10px;
+  background: linear-gradient(90deg,#ff9800,#ffb74d);
+  color:white;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+button:active {
+  transform: scale(0.98);
 }
 
 .hidden {display:none;}
-</style>
-</head>
 
-<body>
-
-<div class="header">Gas Booking Service</div>
-
-<!-- PAGE 1 -->
-<div class="box" id="page1">
-<h3>Consumer Details</h3>
-
-<input type="text" id="name" placeholder="Enter Name">
-<input type="tel" id="mobile" placeholder="Mobile Number">
-
-<button onclick="nextPage()">Proceed →</button>
-</div>
-
-<!-- PAGE 2 -->
-<div class="box hidden" id="page2">
-<h3>Booking Confirmation</h3>
-
-<p id="userData"></p>
-
-<p><b>Service Charge: ₹1</b></p>
-
-<button onclick="payNow()">Pay Now</button>
-</div>
-
-<script>
-function nextPage(){
-let name = document.getElementById("name").value;
-let mobile = document.getElementById("mobile").value;
-
-if(name=="" || mobile==""){
-alert("Fill all details");
-return;
+#qrcode {
+  margin-top:20px;
+  text-align:center;
 }
 
-// show data
-document.getElementById("userData").innerHTML =
-"Name: "+name+"<br>Mobile: "+mobile;
+.success {
+  text-align:center;
+  color:green;
+  font-weight:600;
+  margin-top:15px;
+}
+</style></head><body><div class="header">Gas Booking Service</div><!-- PAGE 1 --><div class="box" id="page1">
+  <h2>Consumer Details</h2>
+  <input type="text" id="name" placeholder="Enter Name">
+  <input type="number" id="mobile" placeholder="Mobile Number">
+  <button onclick="nextPage()">Proceed →</button>
+</div><!-- PAGE 2 --><div class="box hidden" id="page2">
+  <h2>Booking Confirmation</h2>
+  <p id="details"></p>
+  <h3>Service Charge: ₹1</h3>
+  <button onclick="generateQR()">Pay Now</button>  <div id="qrcode"></div>
+  <div id="successMsg" class="success hidden">✅ Payment Successful (Demo)</div>
+</div><!-- QR Library --><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><script>
+function nextPage() {
+  let name = document.getElementById("name").value;
+  let mobile = document.getElementById("mobile").value;
 
-// switch page
-document.getElementById("page1").style.display="none";
-document.getElementById("page2").style.display="block";
+  if(name=="" || mobile==""){
+    alert("Please fill all details");
+    return;
+  }
+
+  document.getElementById("details").innerHTML =
+    "Name: " + name + "<br>Mobile: " + mobile;
+
+  document.getElementById("page1").classList.add("hidden");
+  document.getElementById("page2").classList.remove("hidden");
 }
 
-function payNow(){
-let upi = "upi://pay?pa=YOURUPI@upi&pn=GasBooking&am=1&cu=INR";
-window.location.href = upi;
-}
-</script>
+function generateQR() {
+  let upi = "upi://pay?pa=yourupiid@upi&pn=GasBooking&am=1&cu=INR";
 
-</body>
+  document.getElementById("qrcode").innerHTML = "";
+
+  new QRCode(document.getElementById("qrcode"), {
+    text: upi,
+    width: 180,
+    height: 180
+  });
+
+  // Demo success message after 5 sec
+  setTimeout(() => {
+    document.getElementById("successMsg").classList.remove("hidden");
+  }, 5000);
+}
+</script></body>
 </html>
