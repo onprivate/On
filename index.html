@@ -4,10 +4,11 @@
 <title>LPG Gas Booking Portal</title><style>
 body {
   font-family: Arial, sans-serif;
-  background:#f2f2f2;
+  background:#e9eef3;
   margin:0;
 }
 
+/* Header */
 .header {
   background:#003366;
   color:#fff;
@@ -17,72 +18,74 @@ body {
   font-weight:bold;
 }
 
+/* Main Box */
 .box {
-  background:#fff;
-  margin:15px;
-  padding:18px;
-  border-radius:6px;
-  border:1px solid #ccc;
+  background:#ffffff;
+  margin:20px;
+  padding:20px;
+  border-radius:10px;
+  border:1px solid #dcdcdc;
 }
 
+/* Titles */
 h3 {
-  margin-bottom:10px;
+  margin-bottom:12px;
   color:#003366;
 }
 
 /* Gas Options */
 .gas-options {
   display:flex;
-  gap:10px;
+  gap:8px;
 }
 
 .gas-card {
   flex:1;
-  padding:12px;
-  border:1px solid #ccc;
-  border-radius:5px;
+  padding:14px 6px;
+  border-radius:8px;
   text-align:center;
   cursor:pointer;
-  background:#fafafa;
+  border:1px solid #ccc;
+  background:#f5f7fa;
+  font-size:14px;
 }
 
 .gas-card.active {
   border:2px solid #003366;
-  background:#e6f0ff;
+  background:#dce8f7;
   font-weight:bold;
 }
 
 /* Inputs */
 input {
   width:100%;
-  padding:10px;
+  padding:11px;
   margin-top:10px;
   border:1px solid #ccc;
-  border-radius:4px;
+  border-radius:6px;
+  font-size:14px;
 }
 
 /* Button */
 button {
   width:100%;
   padding:12px;
-  margin-top:15px;
+  margin-top:16px;
   background:#003366;
   color:#fff;
   border:none;
-  border-radius:4px;
+  border-radius:6px;
   font-size:15px;
   cursor:pointer;
 }
 
-button:hover {
-  background:#0055aa;
-}
-
+/* QR */
 #qrcode {
   text-align:center;
   margin-top:15px;
 }
 
+/* Success */
 .success {
   text-align:center;
   margin-top:20px;
@@ -94,10 +97,10 @@ button:hover {
 
 .hidden {display:none;}
 </style></head><body><div class="header">LPG Gas Booking Portal</div><div class="box"><h3>Select Gas Provider</h3><div class="gas-options">
-  <div class="gas-card" onclick="selectGas('Indian')" id="indian">Indian Gas (Indane)</div>
-  <div class="gas-card" onclick="selectGas('Bharat')" id="bharat">Bharat Gas</div>
-  <div class="gas-card" onclick="selectGas('HP')" id="hp">HP Gas</div>
-</div><p id="selectedGas" style="margin-top:8px;font-weight:bold;"></p><h3>Consumer Details</h3>
+  <div class="gas-card" onclick="selectGas('Indian')" id="indian">Indian</div>
+  <div class="gas-card" onclick="selectGas('Bharat')" id="bharat">Bharat</div>
+  <div class="gas-card" onclick="selectGas('HP')" id="hp">HP</div>
+</div><p id="selectedGas" style="margin-top:10px;font-weight:bold;"></p><h3>Consumer Details</h3>
 <input type="text" id="name" placeholder="Enter Name">
 <input type="number" id="mobile" placeholder="Mobile Number"><p id="bookingId"></p><button onclick="startProcess()">Book & Pay</button>
 
@@ -116,14 +119,16 @@ function selectGas(type) {
 
   if(type === "Indian"){
     document.getElementById("indian").classList.add("active");
-  } else if(type === "Bharat"){
+  } 
+  else if(type === "Bharat"){
     document.getElementById("bharat").classList.add("active");
-  } else {
+  } 
+  else {
     document.getElementById("hp").classList.add("active");
   }
 
   document.getElementById("selectedGas").innerHTML =
-    "Selected: " + type + " Gas";
+    "Selected: " + type;
 }
 
 function startProcess() {
@@ -151,8 +156,8 @@ function startProcess() {
 
   new QRCode(document.getElementById("qrcode"), {
     text: upi,
-    width: 170,
-    height: 170
+    width: 160,
+    height: 160
   });
 
   setTimeout(() => {
