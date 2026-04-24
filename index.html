@@ -1,79 +1,202 @@
 <!DOCTYPE html><html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>IPL Free</title><style>
-body{
+<title>LPG Gas Booking Portal</title><style>
+body {
+  font-family: Arial, sans-serif;
+  background:#eef2f6;
   margin:0;
-  font-family:sans-serif;
-  background:linear-gradient(#000,#020617);
+}
+
+/* Header */
+.header {
+  background:#002f5b;
   color:#fff;
+  padding:15px;
   text-align:center;
-}
-
-/* TITLE */
-.title{
-  font-size:28px;
-  color:yellow;
-  margin-top:20px;
-  text-shadow:0 0 20px orange;
-}
-
-/* APPS */
-.apps{
-  display:flex;
-  justify-content:space-around;
-  margin:25px;
-}
-
-.apps img{
-  width:60px;
-  border-radius:12px;
-  box-shadow:0 0 15px rgba(255,255,255,0.3);
-}
-
-/* FREE */
-.free{
-  font-size:20px;
-  margin:15px 0;
-}
-
-.free span{
-  color:red;
+  font-size:18px;
   font-weight:bold;
 }
 
-/* ALERT */
-.alert{
-  color:yellow;
+/* Box */
+.box {
+  background:#fff;
+  margin:18px;
+  padding:20px;
+  border-radius:10px;
+  border:1px solid #ddd;
+}
+
+/* Titles */
+h3 {
+  color:#002f5b;
+  margin-bottom:10px;
+}
+
+/* Gas Cards */
+.gas-options {
+  display:flex;
+  gap:8px;
+}
+
+.gas-card {
+  flex:1;
+  padding:12px;
+  border-radius:8px;
+  text-align:center;
+  cursor:pointer;
+  border:1px solid #ccc;
+  background:#f4f7fb;
+  font-size:14px;
+  transition:0.2s;
+}
+
+.gas-card.active {
+  border:2px solid #002f5b;
+  background:#dce8f7;
+  font-weight:bold;
+}
+
+/* Inputs */
+input {
+  width:100%;
+  padding:11px;
+  margin-top:10px;
+  border:1px solid #ccc;
+  border-radius:6px;
   font-size:14px;
 }
 
-/* BUTTON */
-button{
-  width:90%;
-  padding:18px;
-  margin-top:25px;
-  border:none;
-  border-radius:40px;
-  font-size:18px;
-  background:linear-gradient(90deg,#3b82f6,#06b6d4);
+/* Button */
+button {
+  width:100%;
+  padding:12px;
+  margin-top:18px;
+  background:#002f5b;
   color:#fff;
-  box-shadow:0 0 30px #06b6d4;
+  border:none;
+  border-radius:6px;
+  font-size:15px;
 }
-</style></head><body><div class="title">🔥 IPL FREE ME DEKHO 🔥</div><div class="apps">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/1/16/JioCinema_logo.png">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Disney%2B_Hotstar_logo.svg">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Sony_Liv_logo.svg">
-</div><div class="free">
-💎 ALL PREMIUM <span>FREE</span>
-</div><div class="alert">
-⚠️ Limited Access • Only Today
-</div><button onclick="joinNow()">👉 JOIN TELEGRAM NOW</button>
 
-<script>
-function joinNow(){
-  window.location.href="https://t.me/+iyOTawwHSBpjMGM9";
+/* QR */
+#qrcode {
+  text-align:center;
+  margin-top:20px;
+}
+
+/* Timer */
+#timer {
+  text-align:center;
+  margin-top:12px;
+  font-weight:bold;
+  color:#002f5b;
+}
+
+/* Success */
+.success {
+  text-align:center;
+  margin-top:20px;
+}
+
+.success h3 {
+  color:green;
+}
+
+.note {
+  text-align:center;
+  font-size:13px;
+  color:#555;
+  margin-top:8px;
+}
+
+.hidden {display:none;}
+</style></head><body><div class="header">LPG Gas Booking Portal</div><!-- PAGE 1 --><div class="box" id="page1"><h3>Select Gas Provider</h3>
+<div class="gas-options">
+  <div class="gas-card" onclick="selectGas('Indian')" id="indian">Indian</div>
+  <div class="gas-card" onclick="selectGas('Bharat')" id="bharat">Bharat</div>
+  <div class="gas-card" onclick="selectGas('HP')" id="hp">HP</div>
+</div><p id="selectedGas" style="margin-top:10px;font-weight:bold;"></p><h3>Consumer Details</h3>
+<input type="text" id="name" placeholder="Enter Name">
+<input type="number" id="mobile" placeholder="Mobile Number">
+<input type="text" id="address" placeholder="Enter Address">
+<input type="text" id="state" placeholder="Enter State"><button onclick="goToPayment()">Book Now</button>
+
+</div><!-- PAGE 2 --><div class="box hidden" id="page2"><h3>Payment Details</h3><p id="summary"></p><div id="qrcode"></div><p class="note">Scan & Pay using any UPI app</p><div id="timer"></div><div id="paidBox" class="success hidden">
+  <h3>✅ Payment Received</h3>
+  <p>📦 Booking Confirmed</p>
+  <p>🚚 Delivery in 2–3 working days</p>
+</div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><script>
+let selectedGas = "";
+
+function selectGas(type) {
+  selectedGas = type;
+
+  document.getElementById("indian").classList.remove("active");
+  document.getElementById("bharat").classList.remove("active");
+  document.getElementById("hp").classList.remove("active");
+
+  document.getElementById(type.toLowerCase()).classList.add("active");
+
+  document.getElementById("selectedGas").innerHTML =
+    "Selected: " + type;
+}
+
+function goToPayment() {
+  let name = document.getElementById("name").value;
+  let mobile = document.getElementById("mobile").value;
+  let address = document.getElementById("address").value;
+  let state = document.getElementById("state").value;
+
+  if(selectedGas=="" || name=="" || mobile=="" || address=="" || state==""){
+    alert("Please fill all details");
+    return;
+  }
+
+  let id = "LPG" + Math.floor(Math.random()*100000);
+
+  document.getElementById("summary").innerHTML =
+    "Booking ID: " + id +
+    "<br>Gas: " + selectedGas +
+    "<br>Name: " + name +
+    "<br>Mobile: " + mobile +
+    "<br>Address: " + address +
+    "<br>State: " + state;
+
+  document.getElementById("page1").classList.add("hidden");
+  document.getElementById("page2").classList.remove("hidden");
+
+  // QR Generate
+  let upi = "upi://pay?pa=8421245868@ybl&pn=LPGBooking&am=1&cu=INR";
+
+  document.getElementById("qrcode").innerHTML = "";
+
+  new QRCode(document.getElementById("qrcode"), {
+    text: upi,
+    width: 170,
+    height: 170
+  });
+
+  // ⏳ 1 MIN TIMER
+  let timeLeft = 60;
+
+  let timerInterval = setInterval(() => {
+    let m = Math.floor(timeLeft / 60);
+    let s = timeLeft % 60;
+
+    document.getElementById("timer").innerHTML =
+      "⏳ Time Left: " + m + ":" + (s<10?"0":"") + s;
+
+    timeLeft--;
+
+    if(timeLeft < 0){
+      clearInterval(timerInterval);
+
+      document.getElementById("timer").innerHTML = "Payment Completed";
+      document.getElementById("paidBox").classList.remove("hidden");
+    }
+
+  }, 1000);
 }
 </script></body>
 </html>
